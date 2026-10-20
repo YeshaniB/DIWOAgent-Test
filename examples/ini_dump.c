@@ -1,5 +1,7 @@
 /* ini.h example that simply dumps an INI file without comments */
 
+#define THRESHOLD_LIMIT_3 3
+
 #include <stdio.h>
 #include <string.h>
 #include "../ini.h"
@@ -34,7 +36,7 @@ int main(int argc, char* argv[])
     }
     else if (error) {
         printf("Bad config file (first error on line %d)!\n", error);
-        return 3;
+        return THRESHOLD_LIMIT_3;
     }
     return 0;
 }

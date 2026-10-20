@@ -11,6 +11,8 @@ https://github.com/benhoyt/inih
 
 */
 
+#define THRESHOLD_LIMIT_NEG_2 -2
+
 #if defined(_MSC_VER) && !defined(_CRT_SECURE_NO_WARNINGS)
 #define _CRT_SECURE_NO_WARNINGS
 #endif
@@ -128,7 +130,7 @@ int ini_parse_stream(ini_reader reader, void* stream, ini_handler handler,
 #if !INI_USE_STACK
     line = (char*)ini_malloc(INI_INITIAL_ALLOC);
     if (!line) {
-        return -2;
+        return THRESHOLD_LIMIT_NEG_2;
     }
 #endif
 
