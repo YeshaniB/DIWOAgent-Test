@@ -1,176 +1,143 @@
-# inih (INI Not Invented Here)
+# <a href="https://youtu.be/mLFPodZO8Iw" target="_blank"> OnlineBookStore </a> 
+- A Java Web Developement Project
+- **Youtube VIDEO** for step by step Local Setup Guide : https://youtu.be/mLFPodZO8Iw
+- **Youtube VIDEO** for local setup of tender management project: https://www.youtube.com/watch?v=7CE3aY4e644
+<!--Check out the Live website demo: [https://theonlinebookstore.herokuapp.com](https://theonlinebookstore.herokuapp.com)-->
+- User Login Credentials: (shashi/shashi)
+- Admin Login Credentials: (Admin/Admin)
+<hr>
 
-[![Tests](https://github.com/benhoyt/inih/actions/workflows/tests.yml/badge.svg)](https://github.com/benhoyt/inih/actions/workflows/tests.yml)
+### About
 
-**inih (INI Not Invented Here)** is a simple [.INI file](http://en.wikipedia.org/wiki/INI_file) parser written in C. It's only a couple of pages of code, and it was designed to be _small and simple_, so it's good for embedded systems. It's also more or less compatible with Python's [ConfigParser](http://docs.python.org/library/configparser.html) style of .INI files, including RFC 822-style multi-line syntax and `name: value` entries.
+A user-friendly Online Bookstore project in which users can log in or register, view the available books, select books along with their quantity, and buy them. Users can also get payment receipts after successful payment. The project can also be used by the administrator, who can add new books, remove books, increase and decrease the quantity of books, change the price of the books as well as maintain the selling history of books.
 
-To use it, just give `ini_parse()` an INI file, and it will call a callback for every `name=value` pair parsed, giving you strings for the section, name, and value. It's done this way ("SAX style") because it works well on low-memory embedded systems, but also because it makes for a KISS implementation.
+![onlinebookstore](https://user-images.githubusercontent.com/34605595/137615096-8447d32d-bddc-4f13-a8ed-3c0f4dd5e04e.png)
 
-You can also call `ini_parse_file()` to parse directly from a `FILE*` object, `ini_parse_string()` to parse data from a string, or `ini_parse_stream()` to parse using a custom fgets-style reader function for custom I/O.
+<span style="color:blue">**This Website is built for following purpose:-**</span>
+- For Selling books online.
+- Maintaining books selling history.
+- Adding and managing books.
+- User Friendly.
+- For Implementation of Http Servlets in Java.
+- This is a Mini-project developed using Java, Jdbc, And Servlets.
 
-Download a release, browse the source, or read about [how to use inih in a DRY style](http://blog.brush.co.nz/2009/08/xmacros/) with X-Macros.
+<span style="color:blue">**Admin Have Following Access for this online store site:-**</span>
+- Add New Books.
+- View Books Available.
+- Remove Books.
+- Increase Books Amount.
 
+<span style="color:blue">**Users Have Following Access for this online store site:-**</span>
+- Create New Account or Register.
+- Login.
+- View Available Books.
+- Select Books to Buy.
+- Select Books Quantity.
+- Buy Books.
+- Get Payment Receipt.
 
-## Compile-time options ##
+### Technologies used:-
+1. Front-End Development:
+- HTML
+- CSS
+- Javascript
+- BootStrap
 
-You can control various aspects of inih using preprocessor defines:
+2. Back-End Development:
+- Java [JDK 8+]
+- JDBC
+- Servlet
 
-### Syntax options ###
+3. Database:
+- MySql
 
-  * **Multi-line entries:** By default, inih supports multi-line entries in the style of Python's ConfigParser. To disable, add `-DINI_ALLOW_MULTILINE=0`.
-  * **UTF-8 BOM:** By default, inih allows a UTF-8 BOM sequence (0xEF 0xBB 0xBF) at the start of INI files. To disable, add `-DINI_ALLOW_BOM=0`.
-  * **Inline comments:** By default, inih allows inline comments with the `;` character. To disable, add `-DINI_ALLOW_INLINE_COMMENTS=0`. You can also specify which character(s) start an inline comment using `INI_INLINE_COMMENT_PREFIXES`.
-  * **Start-of-line comments:** By default, inih allows both `;` and `#` to start a comment at the beginning of a line. You can override this by changing `INI_START_COMMENT_PREFIXES`.
-  * **Allow no value:** By default, inih treats a name with no value (no `=` or `:` on the line) as an error. To allow names with no values, add `-DINI_ALLOW_NO_VALUE=1`, and inih will call your handler function with value set to NULL.
+### ================ Software And Tools Required ================
+- : Git [https://www.youtube.com/watch?v=gv7VPQ4LZ7g]
+- : Java JDK 8+ [https://www.youtube.com/watch?v=O9PWH9SeTTE]
+- : Eclipse EE (Enterprise Edition) [https://www.youtube.com/watch?v=8aDsEV7txXE]
+- : Apache Maven [https://www.youtube.com/watch?v=jd2zx3dLjuw]
+- : Tomcat v8.0+ [https://youtu.be/mLFPodZO8Iw?t=903]
+- : MySQL Server [https://www.youtube.com/watch?v=Ydh5jYA6Frs]
+- : MySQL Workbench (optional) [https://www.youtube.com/watch?v=t79oCeTXHwg]
 
-### Parsing options ###
+### ================= Dummy Database Initialization =================
 
-  * **Stop on first error:** By default, inih keeps parsing the rest of the file after an error. To stop parsing on the first error, add `-DINI_STOP_ON_FIRST_ERROR=1`.
-  * **Report line numbers:** By default, the `ini_handler` callback doesn't receive the line number as a parameter. If you need that, add `-DINI_HANDLER_LINENO=1`.
-  * **Call handler on new section:** By default, inih only calls the handler on each `name=value` pair. To detect new sections (e.g., the INI file has multiple sections with the same name), add `-DINI_CALL_HANDLER_ON_NEW_SECTION=1`. Your handler function will then be called each time a new section is encountered, with `section` set to the new section name but `name` and `value` set to NULL.
+STEP 1: Open MySQL Command Prompt or MySQL Workbench
 
-### Memory options ###
+STEP 2: Login to the administrator user as : ```mysql -u <username> -p``` (Enter Password if asked)
 
-  * **Stack vs heap:** By default, inih creates a fixed-sized line buffer on the stack. To allocate on the heap using `malloc` instead, specify `-DINI_USE_STACK=0`.
-  * **Maximum line length:** The default maximum line length (for stack or heap) is 200 bytes. To override this, add something like `-DINI_MAX_LINE=1000`. Note that `INI_MAX_LINE` must be 3 more than the longest line (due to `\r`, `\n`, and the NUL).
-  * **Maximum section and name length:** Section names and property names are stored in fixed-size buffers of `INI_MAX_SECTION` and `INI_MAX_NAME` bytes respectively (both default to 50, including the NUL). Longer names are silently truncated. To override, add something like `-DINI_MAX_SECTION=256` or `-DINI_MAX_NAME=256`. Both values are exposed in `ini.h`.
-  * **Initial malloc size:** `INI_INITIAL_ALLOC` specifies the initial malloc size when using the heap. It defaults to 200 bytes.
-  * **Allow realloc:** By default when using the heap (`-DINI_USE_STACK=0`), inih allocates a fixed-sized buffer of `INI_INITIAL_ALLOC` bytes. To allow this to grow to `INI_MAX_LINE` bytes, doubling if needed, set `-DINI_ALLOW_REALLOC=1`.
-  * **Custom allocator:** By default when using the heap, the standard library's `malloc`, `free`, and `realloc` functions are used; to use a custom allocator, specify `-DINI_CUSTOM_ALLOCATOR=1` (and `-DINI_USE_STACK=0`). You must define and link functions named `ini_malloc`, `ini_free`, and (if `INI_ALLOW_REALLOC` is set) `ini_realloc`, which must have the same signatures as the `stdlib.h` memory allocation functions.
+STEP 3: Copy paste the following MySql Commands-
+```MySQL
+create database if not exists onlinebookstore;
 
-## Simple example in C ##
+use onlinebookstore;
 
-```c
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "../ini.h"
+create table if not exists books(barcode varchar(100) primary key, name varchar(100), author varchar(100), price int, quantity int);
 
-typedef struct
-{
-    int version;
-    const char* name;
-    const char* email;
-} configuration;
+create table if not exists users(username varchar(100) primary key,password varchar(100), firstname varchar(100),
+    lastname varchar(100),address text, phone varchar(100),mailid varchar(100),usertype int);
 
-static int handler(void* user, const char* section, const char* name,
-                   const char* value)
-{
-    configuration* pconfig = (configuration*)user;
+insert into books values('9780134190563','The Go Programming Language','Alan A. A. Donovan and Brian W. Kernighan',400,8);
+insert into books values('9780133053036','C++ Primer','Stanley Lippman and Josée Lajoie and Barbara Moo',976,13);
+insert into books values('9781718500457','The Rust Programming Language','Steve Klabnik and Carol Nichols',560,12);
+insert into books values('9781491910740','Head First Java','Kathy Sierra and Bert Bates and Trisha Gee',754,23);
+insert into books values('9781492056300','Fluent Python','Luciano Ramalho',1014,5);
+insert into books values('9781720043997','The Road to Learn React','Robin Wieruch',239,18);
+insert into books values('9780132350884','Clean Code: A Handbook of Agile Software Craftsmanship','Robert C Martin',288,3);
+insert into books values('9780132181273','Domain-Driven Design','Eric Evans',560,28);
+insert into books values('9781951204006','A Programmers Guide to Computer Science','William Springer',188,4);
+insert into books values('9780316204552','The Soul of a New Machine','Tracy Kidder',293,30);
+insert into books values('9780132778046','Effective Java','Joshua Bloch',368,21);
+insert into books values('9781484255995','Practical Rust Projects','Shing Lyu',257,15);
+insert into users values('demo','demo','Demo','User','Demo Home','42502216225','demo@gmail.com',2);
+insert into users values('Admin','Admin','Mr.','Admin','Haldia WB','9584552224521','admin@gmail.com',1);
+insert into users values('shashi','shashi','Shashi','Raj','Bihar','1236547089','shashi@gmail.com',2);
 
-    #define MATCH(s, n) strcmp(section, s) == 0 && strcmp(name, n) == 0
-    if (MATCH("protocol", "version")) {
-        pconfig->version = atoi(value);
-    } else if (MATCH("user", "name")) {
-        pconfig->name = strdup(value);
-    } else if (MATCH("user", "email")) {
-        pconfig->email = strdup(value);
-    } else {
-        return 0;  /* unknown section/name, error */
-    }
-    return 1;
-}
+commit;
 
-int main(int argc, char* argv[])
-{
-    configuration config;
-
-    if (ini_parse("test.ini", handler, &config) < 0) {
-        printf("Can't load 'test.ini'\n");
-        return 1;
-    }
-    printf("Config loaded from 'test.ini': version=%d, name=%s, email=%s\n",
-        config.version, config.name, config.email);
-    return 0;
-}
 ```
 
+### ========== Importing and Running The Project Through Eclipse EE ==========
 
-## C++ example ##
+Step 0: Open Eclipse Enterprise Edition. [Install, if not already installed.]
 
-If you're into C++ and the STL, there is also an easy-to-use [INIReader class](https://github.com/benhoyt/inih/blob/master/cpp/INIReader.h) that stores values in a `map` and lets you `Get()` them:
+Step 1: Click On File > Import > Git > Projects From Git > Clone Uri > Paste The Repository Url as: ```https://github.com/shashirajraja/onlinebookstore.git```> Select master Branch > Next > Next > Finish.
 
-```cpp
-#include <iostream>
-#include "INIReader.h"
+Step 2. a: Go inside ```src/main/resources > application.properties``` and update the value of database details as per your usage, like db.driver, db.host, db.username and db.password according to your installed mysql/postgresql admin user credentials.
 
-int main()
-{
-    INIReader reader("../examples/test.ini");
+Step 2.b: Right Click on Project > Run as > Maven Build > In the goals field enter "clean install" > apply > run
 
-    if (reader.ParseError() < 0) {
-        std::cout << "Can't load 'test.ini'\n";
-        return 1;
-    }
-    std::cout << "Config loaded from 'test.ini': version="
-              << reader.GetInteger("protocol", "version", -1) << ", name="
-              << reader.Get("user", "name", "UNKNOWN") << ", email="
-              << reader.Get("user", "email", "UNKNOWN") << ", pi="
-              << reader.GetReal("user", "pi", -1) << ", active="
-              << reader.GetBoolean("user", "active", true) << "\n";
-    return 0;
-}
-```
+Step 2.c: Right Click On Project > Build Path > Configure Build Path > Libraries > Remove and Update Any Libraries if Red Mark Exists > Finish.
 
-This simple C++ API works fine, but it's not very fully-fledged. I'm not planning to work more on the C++ API at the moment, so if you want a bit more power (for example `GetSections()` and `GetFields()` functions), see these forks:
+Step 3: [Only If Tomcat Server is not configured in Eclipse] : Right Click On Project > Run As > Run On Server > Select Tomcat V8.0 > (Select Tomcat V8.0 Installation Location If Asked) Next > Add onlinebookstore > Finish.
 
-  * https://github.com/Blandinium/inih
-  * https://github.com/OSSystems/inih
+Step 4: In The Server Tab > Double Click On Tomcat Server > Ports > Change The Port Number For Http/1.1 To 8083 > Close And Save.
 
+Step 5: Right Click On Project > Run As > Run On Server > Select Tomcat v8.0 > Next > Add All> Done.
 
-## Differences from ConfigParser ##
+Step 6: Check Running The Site At  <a href="http://localhost:8083/onlinebookstore/">http://localhost:8083/onlinebookstore/</a>
 
-Some differences between inih and Python's [ConfigParser](http://docs.python.org/library/configparser.html) standard library module:
+Step 7: Default Username And Password For Admin Is "Admin" And "Admin"
 
-* INI name=value pairs given above any section headers are treated as valid items with no section (section name is an empty string). In ConfigParser having no section is an error.
-* Line continuations are handled with leading whitespace on continued lines (like ConfigParser). However, instead of concatenating continued lines together, they are treated as separate values for the same key (unlike ConfigParser).
+Step 8: The default Username And Password For User Is "shashi" And "shashi"
+
+## FAQ
+**Question:1** Unable to Connect to Database?
+
+**Answer:** Please check you have installed the mysql correctly and have updated the correct db details in application.properties file. Also you can try doing maven clean install and force update the project and restart.
+<hr>
+
+Note:- Considering this as a Sample Project, we have not much considered of web security.
+#### Some Screenshots for the project:
+<img width="941" alt="image" src="https://user-images.githubusercontent.com/34605595/224769637-37c34d4b-26e7-4d49-b990-4c09b260ec31.png">
+<img width="954" alt="image" src="https://user-images.githubusercontent.com/34605595/224769990-f440f74d-41b2-4629-ba1c-a87267f225d9.png">
+<img width="930" alt="image" src="https://user-images.githubusercontent.com/34605595/224770145-5902054f-5943-44ac-b02f-92097c8a6972.png">
+<img width="934" alt="image" src="https://user-images.githubusercontent.com/34605595/224770257-e18a3810-0457-4b78-bf46-cf82746708ee.png">
+<img width="946" alt="image" src="https://user-images.githubusercontent.com/34605595/224770392-5a5478d2-98cc-44ee-8689-132b6b16af80.png">
 
 
-## Platform-specific notes ##
+#### "Suggestions and project improvement ideas are welcomed!"
 
-* Windows/Win32 uses UTF-16 filenames natively, so to handle Unicode paths you need to call `_wfopen()` to open a file and then `ini_parse_file()` to parse it; inih does not include `wchar_t` or Unicode handling.
-
-## Meson notes ##
-
-* The `meson.build` file is not required to use or compile inih, its main purpose is for distributions.
-* By default Meson is set up for distro installation, but this behavior can be configured for embedded use cases:
-  * with `-Ddefault_library=static` static libraries are built.
-  * with `-Ddistro_install=false` libraries, headers and pkg-config files won't be installed.
-  * with `-Dwith_INIReader=false` you can disable building the C++ library.
-* All compile-time options are implemented in Meson as well, you can take a look at [meson_options.txt](https://github.com/benhoyt/inih/blob/master/meson_options.txt) for their definition. These won't work if `distro_install` is set to `true`.
-* If you want to use inih for programs which may be shipped in a distro, consider linking against the shared libraries. The pkg-config entries are `inih` and `INIReader`.
-* In case you use inih as a Meson subproject, you can use the `inih_dep` and `INIReader_dep` dependency variables. You might want to set `default_library=static` and `distro_install=false` for the subproject. An official Wrap is provided on [WrapDB](https://wrapdb.mesonbuild.com/inih).
-* For packagers: if you want to tag the version in the pkg-config file, you will need to do this downstream. Add `version : '<version_as_int>',` after the `license` tag in the `project()` function and `version : meson.project_version(),` after the `soversion` tag in both `library()` functions.
-
-## Using inih with tipi.build
-
-`inih` can be easily used in [tipi.build](https://tipi.build) projects simply by adding the following entry to your `.tipi/deps` (replace `r56` with the latest version tag):
-
-```json
-{
-    "benhoyt/inih": { "@": "r56" }
-}
-```
-
-The required include path in your project is:
-
-```c
-#include <ini.h>
-```
-
-## Building from vcpkg ##
-
-You can build and install inih using [vcpkg](https://github.com/microsoft/vcpkg/) dependency manager:
-
-    git clone https://github.com/Microsoft/vcpkg.git
-    cd vcpkg
-    ./bootstrap-vcpkg.sh
-    ./vcpkg integrate install
-    ./vcpkg install inih
-
-The inih port in vcpkg is kept up to date by microsoft team members and community contributors.
-If the version is out of date, please [create an issue or pull request](https://github.com/Microsoft/vcpkg) on the vcpkg repository.
-
-## Related links ##
-
-* [Conan package for inih](https://github.com/conan-io/conan-center-index/tree/master/recipes/inih) (Conan is a C/C++ package manager)
+<bold>Thanks a lot,</bold><br/>
+                                                                                                        Project Leader<br/>
+                                                                                                         <b>Shashi Raj</b>
